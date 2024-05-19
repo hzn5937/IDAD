@@ -1,0 +1,415 @@
+/*header start*/
+html{
+    font-size: 75%; 
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('images/background.jpg');
+    background-size: cover; /* Adjust the background size as needed */
+    background-position: center; /* Center the background image */
+    font-family: Arial, sans-serif; /* Set a default font-family */
+}
+html, body {
+    height: 100%;
+}
+header {                /* fixed header */
+    float: left;
+    position: fixed;
+    top:0; left: 0; right:0 ;
+    background-color: white;
+    z-index: 1000;
+    box-shadow:black 0 0.25rem 0.5rem;
+}
+article {                 /* center elements */
+    padding: 2.5rem;
+    margin:0 auto;
+    max-width: 1300px; 
+}
+.header .flex {          /* center elements */
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin:0 auto;
+    max-width: 1200px;
+}
+#logo {                                     /* home button style */
+    text-decoration: none;                  /* remove <a> underline */
+    font-size: 2.5rem;
+    color: black;
+}
+.header .flex #logoImage {                  /* logo button style */
+    height: 14%;
+    width: 14%;
+    padding-top: 7px;
+}
+
+.header .flex .navigation a {               /* navigation style */
+    margin: 0 1rem;
+    font-size: 2rem;
+    color: black;
+    text-decoration: none;                  /* remove <a> underline */
+}
+.header .flex .navigation a:hover{  
+    text-decoration: underline;
+    color: red;
+}
+/*header end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* index */
+/*introductory section*/
+/* heading for everypage */
+#heading1 {                            /* floating behind the header */
+    padding-top: 70px;
+}
+.heading {                             /* general heading style */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 3.5rem;
+    color: black;
+    text-transform: uppercase;
+    text-shadow: #aaa 3.5px 3.5px 3.5px;
+}
+
+/* big red button */
+.functionbutton {                           /* function button style (specific button) */
+    text-decoration: none;
+    display: block;
+    width: 77.5%;
+    margin-top: 1rem;                       /* spacing with text */
+    border-radius: .5rem;                   /* round border */
+    padding:1rem 3rem;                      /* center text in button */
+    font-size: 2rem;
+    color: white;
+    background-color: red;
+    text-transform: capitalize;
+    text-align: center;
+    cursor:pointer;              
+}
+.functionbutton:hover {
+    background-color: black;
+}
+
+
+.aboutus .bigbox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 35rem); /* enough to fit 3 boxes */
+    gap:1.5rem;                    /*  between boxes */
+    align-items: flex-start;
+    justify-content: center;
+}
+.aboutus .bigbox .smallbox {
+    background-color: white;
+    border-radius: 0.5rem;                    /*round border */
+    padding: 2rem;                            /* center contents */
+    text-align: left;
+    box-shadow:black 0 0.5rem 1rem;
+    position: relative;
+}
+.aboutus .bigbox .smallbox img {
+    width: 100%;                            /* img = full width the smallbox */
+    margin-bottom: 1rem;                    /* spacing with text */
+}
+.aboutus .bigbox .smallbox h3 {
+    font-size: 2.5rem ;
+    color: black;
+}
+.aboutus .bigbox .smallbox p {
+    padding:1rem 0;
+   line-height: 2;
+   font-size: 1.35rem;
+   color: gray;
+}
+
+
+/* introductory section end */
+/* menu section */
+.menu .bigbox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 35rem); /* enough to fit 3 boxes */
+    gap: 1.5rem;
+    align-items: flex-start;
+    justify-content: center;
+}
+.menu .bigbox .smallbox {
+    background-color: white;
+    box-shadow:black 0 0.5rem 1rem;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+.menu .bigbox .smallbox img { /* img = full width the smallbox */
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.menu .bigbox .smallbox .productname {
+    font-size: 2rem;
+    color: black;
+    margin: 0.5rem 0;
+}
+.menu .bigbox .smallbox .productname span {  /*  sold out appearance */
+    text-decoration: line-through;
+}
+
+
+#none1, #none2 {                    /*  sold out appearance */
+    background-color:black ;
+    cursor:not-allowed;                   
+}
+
+/* menu section end*/
+/* index page end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* registration page start, order page most likely the same
+   form section*/
+main .flex .row {
+    font-size: 1.5em;
+}
+.row {                      /* separate 2 column */
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .flex form {
+    border-radius: .5rem;               /* round border */
+    padding: 2rem;                      
+    background-color: white;
+    box-shadow:black 0 0.5rem 1rem;
+}
+main .flex form .inputBox {
+    margin: 1rem 0;                        /* spacing elements */
+    border-radius: 0.9rem;                 /* round border */
+    border-width: 5px;
+    background-color: white;
+    padding: 1.4rem;
+    font-size: 1.8rem;
+    color: black;
+}
+
+#dAddress, #ccNumber, #postcode, #cvc, #expDate {
+    opacity: 0.1;                          /*readonly -> initially see as disabled */
+    margin: 1rem 0;                        /* spacing elements */
+    border-radius: 0.9rem;                 /* round border */
+    border-width: 5px;
+    background-color: white;
+    padding: 1.4rem;
+    font-size: 1.8rem;
+    color: black;
+}
+
+
+/* form section end */
+
+
+/* default input style*/
+.cbox {                                 /* cbox size */
+    width: 30px;
+    height: 30px;
+}
+select {                                /* select bar size */
+    font-size: 1.2em;
+    height: 55px;
+    width: 308px;
+    border-radius: 0.9rem;
+    border-width: 3px;
+    border-color: black;
+    margin: 1rem 0;
+}
+#cardType {
+    opacity: 0.1;
+}
+input[type="radio"] {                  /*  radio button size */
+    margin: 10px;
+    transform: scale(2);
+}
+.btn {                                  /* default button (input type = button) */
+    margin-top: 20px;                   /* button position */
+    text-align: right;
+}
+#pwdShowBtn, #dupAddressBtn     {
+    transform: scale(1.5);              /* password show function checkbox size */
+}
+/* default input style end*/
+
+
+/* input style */
+.button {                                   /* <a> style as a button */
+	border:1px solid black;
+	border-radius:5px;                      /*round border*/
+	background-color:lightgrey;	
+    color: black;
+    text-decoration: none;
+    padding: 0.3em;
+}
+.button:hover {
+	background-color 		:darkgrey;
+}
+
+
+#tipBtn {                                  /*  specific position */
+    float: left;                           /*  seperate two buttons sections */
+}
+/* input style end
+form section end */
+
+
+
+
+
+/* feature page */
+main .flex .featurelist{
+    border-radius: .5rem;               /* round border */
+    padding: 2rem;                      
+    background-color: white;
+    box-shadow:black 0 0.5rem 1rem;
+    font-size: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* general footer style */
+footer {
+    background-color: black;        
+    color: white;
+    position: relative;
+    width: 100%;
+    left: -8px;
+    bottom: 0;                              /* fixed position */
+    height: 3em;
+    padding: 1em;                          /*  center */
+    margin-top: 200px;
+}
+aside {
+    font-size: 1.2em;                 /*specific position for aside */
+    top: 24%;                         
+    right: 20px;
+    color: white;
+    position: absolute;
+    float: right;
+    width: 14%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* css for java*/
+.window {                                      /* tip/error windows */
+    display: none;
+    z-index: 2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -11em;
+    margin-left: -12em;
+    background-color: rgb(9, 160, 210);
+    border-radius: 5px;
+    padding: 5px;
+    width: 24em;
+    height: 20em;
+    font-size: 1.5em;
+}
+
+
+.overlay {                                                  /* overlays */
+    visibility: hidden;                             /* initially hidden then visible via java*/
+    z-index: 1;                                     /* prevent users to clicks at the back of errorMsg */
+    position: fixed;
+    top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: grey;
+	opacity: 0.5;                                   /* make the overlay be able to see through */ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
