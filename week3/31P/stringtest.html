@@ -1,0 +1,18 @@
+<script src="framework//js/vue.js"></script>
+
+<div id="app">
+    {{message}}
+</div>
+
+<script>
+    Vue.createApp(
+        {
+            data()
+            {
+                return {
+                    message: 'Hello Vue.js!'
+                }
+            }
+        }
+    ).mount('#app');
+</script>
