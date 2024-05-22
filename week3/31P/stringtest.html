@@ -1,18 +1,50 @@
-<script src="framework//js/vue.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.1P String Test</title>
+    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <h1 class="text-center">String Test</h1>
+        <div class="row">
+            <div class="col-sm">
+                <p>
+                    <label for="name">Please enter your name:</label>
+                    <input type="text" name="name" id="name" v-model="strName">
+                </p>
+            </div>
+        </div>
 
-<div id="app">
-    {{message}}
-</div>
+        <div class="row">
+            <div class="col-sm">
+                <div v-if="isBach">
+                    <p>Awesome Name!</p>
+                </div>
+                <div v-else>
+                    <p>{{strName}} is not my name!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-    Vue.createApp(
-        {
-            data()
-            {
+    <script src="framework/js/vue.js"></script>
+    <script>
+        Vue.createApp({
+            data(){
                 return {
-                    message: 'Hello Vue.js!'
+                    strName: 'Hello World'
+                }
+            },
+
+            computed: {
+                isBach(){
+                    return this.strName.toLowerCase() == 'bach';
                 }
             }
-        }
-    ).mount('#app');
-</script>
+        }).mount('#app');
+    </script>
+</body>
+</html>
