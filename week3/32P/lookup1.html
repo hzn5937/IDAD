@@ -8,7 +8,37 @@
 </head>
 <body>
     <div id="app" class="container">
-        {{unitInfos}}
+        <div class="row">
+            <h1>Lookup App: Unit Search Filter</h1>
+        </div>
+
+        <div class="row">
+            
+        </div>
+
+        <div class="row">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Credit Points</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="unit in unitInfos">
+                        <td>{{unit.code}}</td>
+                        <td>{{unit.desc}}</td>
+                        <td>{{unit.cp}}</td>
+                        <td>{{unit.type}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </div>
+        </div>
     </div>
 
 
@@ -17,6 +47,9 @@
         Vue.createApp({
             data(){
                 return {
+                    unitObj: {
+                        code: '', desc: '', cp: '', type: ''
+                    },
                     unitInfos: [
                         {code:'ICT10001', desc:'Problem Solving with ICT', cp:12.5, type:'Core'},
                         {code:'COS10005', desc:'Web Development', cp:12.5, type:'Core'},
