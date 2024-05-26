@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration App Cloud Service</title>
+    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <h1>Registration App: Cloud Service</h1>
+        </div>
+        <div class="row mt-3">
+            <h2>Login Information</h2>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <label for="username">Username: &VeryThinSpace;</label>
+                <input type="text" id="username" v-model="user.username">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <label for="password">Password: &VeryThinSpace;</label>
+                <input type="password" id="password" v-model="user.password">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <label for="password_confirmation">Re-enter password: &VeryThinSpace;</label>
+                <input type="password" class="me-3" id="password_confirmation" v-model="user.password_confirmation">
+                <span v-if="user.password != user.password_confirmation && user.password_confirmation != ''">Password does not match</span>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h2>Phone Information</h2>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3>Operating  System</h3>
+                <input type="radio" id="android" class="me-1" v-model="phoneObj.os" value="Android">
+                <label for="radio" class="me-1">Android</label>
+                <input type="radio" id="ios" class="me-1" v-model="phoneObj.os" value="IOS">
+                <label for="radio" class="me-1">IOS</label>
+                <input type="radio" id="windows" class="me-1" v-model="phoneObj.os" value="Windows">
+                <label for="radio" class="me-1">Windows</label>
+            </div>
+
+            <div class="col">
+                <h3>Model</h3>
+                <label for="model" class="me-1">Select phone model:</label><br>
+                <select name="model" id="model" v-model="phoneObj.model">
+                    <option value="" disabled selected></option>
+                    <option v-for="phone in phoneModels" values="{{ phone.model }}">{{phone.model}}</option>
+                </select>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row mt-3">
+            <h3>Summary</h3>
+            <p>Username: {{user.username}}</p>
+            <p>OS: {{phoneObj.os}}</p>
+            <p>Phone: {{phoneObj.model}}</p>
+        </div>
+
+
+
+    </div>
+    <script src="framework/js/vue.js"></script>
+
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    phoneObj: {
+                        model: '',
+                        os: ''
+                    },
+                    user: {
+                        username: '',
+                        password: '',
+                        password_confirmation: ''
+                    },
+                    phones: [
+                        {model:'HTC 10', os:'Android'},
+                        {model:'Nokia 6', os:'Android'},
+                        {model:'Samsung Galaxy 20 Ultra', os:'Android'},
+                        {model:'IDD VIOS Non Windows', os:'Android'},
+                        {model:'iPhone X', os:'IOS'},
+                        {model:'iPhone Xs Max', os:'IOS'},
+                        {model:'iPhone 11 Pro Max', os:'IOS'},
+                        {model:'IDD Windows Non Android', os:'IOS'},
+                        {model:'HP Elite x3', os:'Windows'},
+                        {model:'Microsoft 950', os:'Windows'},
+                        {model:'Microsoft 950XL', os:'Windows'},
+                        {model:'IDD VIOS Non Android', os:'Windows'}
+                    ]
+                }
+            },
+            computed: {
+                phoneModels(){
+                    return this.phones.filter(phone => {
+                        return phone.os.includes(this.phoneObj.os)
+                    })
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
