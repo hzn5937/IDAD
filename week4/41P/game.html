@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <h1>Number Guessing Game</h1>
+        </div>
+        <div class="row">
+            <p><label for="num">Enter your guess from 1 to 100: &ThinSpace;</label>
+            <input type="number" name="" id="num" v-model="guess"></p>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary me-1" @click="checkNumber">Check Guess</button>
+                <button type="button" class="btn btn-primary me-1" @click="giveUp">Give Up</button>
+                <button type="button" class="btn btn-primary me-1" @click="startOver">Start Over</button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- result -->
+            <div class="col">
+                <p class="mt-2">{{message}}</p>
+
+                <p>debug: {{result}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="framework/js/vue.js"></script>
+    <script src="framework/js/appgame.js"></script>
+
+</body>
+</html>
