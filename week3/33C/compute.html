@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div id="app" class="container">
+        <div class="row">
+            <h1>BMI Calculator</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="height">Enter height in centimetres:</label>
+                <input type="number" class="form-control" id="height" v-model="user.height">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="weight">Enter weight in kilograms:</label>
+                <input type="number" class="form-control" id="weight" v-model="user.weight">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <p v-if="bmi<18.5">Computed BMI is : {{bmi}} Underweight</p>
+                <p v-else-if="18 <= bmi && bmi < 25">Computed BMI is : {{bmi}} Normal</p>
+                <p v-else-if="25 <= bmi && bmi < 30">Computed BMI is : {{bmi}} Overweight</p>
+                <p v-else>Computed BMI is : {{bmi}} Obese</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="framework/js/vue.js"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    user: {
+                        height: 0,
+                        weight: 0
+                    }
+                }
+            },
+            computed: {
+                bmi(){
+                    height = this.user.height / 100
+                    weight = this.user.weight
+                    //round to 2 decimal places
+                    bmi = Math.round(weight / (height * height) * 100) / 100
+                    return bmi
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>
