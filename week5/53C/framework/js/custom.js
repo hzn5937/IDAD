@@ -1,22 +1,79 @@
+var units = [
+    {code:'ICT10001', desc:'Problem Solving with ICT', cp:12.5, type:'Core'},
+    {code:'COS10005', desc:'Web Development', cp:12.5, type:'Core'},
+    {code:'INF10003', desc:'Introduction to Business Information Systems', cp:12.5, type:'Core'},
+    {code:'INF10002', desc:'Database Analysis and Design', cp:12.5, type:'Core'},
+    {code:'COS10009', desc:'Introduction to Programming', cp:12.5, type:'Core'},
+    {code:'INF30029', desc:'Information Technology Project Management', cp:12.5, type:'Core'},
+    {code:'ICT30005', desc:'Professional Issues in Information Technology', cp:12.5, type:'Core'},
+    {code:'ICT30001', desc:'Information Technology Project', cp:12.5, type:'Core'},
+    {code:'COS20001', desc:'User-Centred Design', cp:12.5, type:'Software Development'}
+];
+
+const Unit = {
+    prop:['id'],
+    data() {
+        return { units };
+    },
+    //define the template for the route results
+    template: `<div><h2> Unit Code: {{$route.params.id}}</h2>
+        <ul v-for='unit in filteredUnits'>
+            <li>{{unit.code}}</li>
+            <li>{{unit.desc}}</li>
+            <li>{{unit.cp}}</li>
+            <li>{{unit.type}}</li>
+        </ul></div>
+    `,
+    computed: {
+        //filter function (returns the selected unit object )
+        filteredUnits: function () {
+            return this.units.filter((unit) => unit.code === this.$route.params.id);
+        },
+    },
+};
+
+const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
+    routes: [
+        {
+            path: "/unit/:id",
+            component: Unit,
+            // Defining path and the component
+        },
+    ],
+});
+
 const app = Vue.createApp({});
 
-app.component("custom", {
+app.component("app-lookup", {
     data: function () {
         return {
-            msg: "data",
+            units,
         };
     },
     template: `
-            <h1>Hello World</h1>
-            <p>{{msg}}</p>
+            <h1>Unit Information System</h1>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">More Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="unit in units">
+                        <td>{{unit.code}}</td>
+                        <td>{{unit.desc}}</td>
+                        <td><router-link :to="'/unit/' + unit.code">show details</router-link></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <router-view></router-view>
         `,
-    methods: {
-        add: function (param) {
-            // function()
-        },
-        remove: function (param) {
-            //fuction()
-        },
-    },
 });
+app.use(router);
 app.mount("#app");
+
