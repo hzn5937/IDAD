@@ -1,42 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<!-- link to material design -->
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
-	
-	<!-- link to vuetify -->
-	<link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.css" rel="stylesheet"> 
 
+	<!-- link to vuetify -->
+	<link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>hihi</title>
 </head>
 <body>
 	<div id="app">
-	<v-app>
-	<v-main>
-	<v-container>
-		<v-card-title class="headline">Application Form</v-card-title>
-		
-		<v-form ref="myForm" method="post"     action="http://mercury.swin.edu.au/it000000/formtest.php">
-			
-			<v-text-field name="firstName" v-model="firstName"  :rules="nameRules" label="First Name"    >   </v-text-field>
-			
-			<v-text-field name="email" v-model="email" type="email"     :rules="emailRules" label="Email"   >   </v-text-field>
-			
-			<v-btn  type="submit" color="success"   >Submit</v-btn>  
-		
-	</v-form>
-	</v-container>
-	</v-main>
-	</v-app>
+		<v-app>
+			<v-main>
+				<v-container>
+					<v-card-title class="headline">Application Form</v-card-title>
+
+					<v-form ref="myForm" method="post"     action="http://mercury.swin.edu.au/it000000/formtest.php">
+
+						<v-text-field name="firstName" v-model="firstName"  :rules="nameRules" label="First Name"    >   </v-text-field>
+
+						<v-text-field name="email" v-model="email" type="email"     :rules="emailRules" label="Email"   >   </v-text-field>
+
+						<v-btn  type="submit" color="success"   >Submit</v-btn>
+					</v-form>
+				</v-container>
+			</v-main>
+		</v-app>
 	</div>
 
-	<!-- link to vue -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-	
-	<!-- link to vuetify  -->
- 	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.js"></script>
-	
-	<!-- link to your own js -->
-	<script src="vuetify form.js"></script> 
-</body> 
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.js"></script>
+	<script>
+		const { createApp } = Vue
+		const { createVuetify } = Vuetify
+		
+		const vuetify = createVuetify( )  
+		const app = createApp({
+			
+			data: () => ({
+				firstName: '', email: '',
+				
+				nameRules: [
+				v => !!v || 'Name required',
+				v => (v && v.length <= 10) || 'Name must be less than 10 characters' 
+				],
+				
+				emailRules: [
+				v => !!v || 'E-mail is required',
+				v => /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(v) || 'E-mail must be valid',
+				]
+			})
+		})
+		
+		app.use(vuetify)
+		app.mount('#app')
+	</script>
+</body>
 </html>

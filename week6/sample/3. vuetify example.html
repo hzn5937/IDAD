@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<!-- link to material design -->
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
-	
+
 	<!-- link to vuetify -->
-	<link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.css" rel="stylesheet"> 
-	
+	<link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>hihi</title>
 </head>
 <body>
 	<div id="app">
@@ -27,30 +27,42 @@
 				<v-icon>mdi-alarm</v-icon>
 			</v-btn>
         </v-container>
-        
+
         <v-container fluid>
-			<v-alert type="success">
+			<v-alert closeable type="success" title="hihi skibidi" text="skibidi">
 				I'm a success alert.
 			</v-alert>
-      
+
 			<v-alert type="info">
 				I'm an info alert.
 			</v-alert>
+
+			<v-alert 
+			closable
+
+			icon="mdi-help-circle"
+			type="error"
+			title="Error"
+			close-label="Close Alert"
+			>
+				I'm an error alert.
+			</v-alert>
+
         </v-container>
 		</v-main>
 
 		<v-footer app>
-			<p> this is a footer</p>      
+			<p> this is a footer</p>
 		</v-footer>
-    </v-app>  
+    </v-app>
 	</div>
 
 	<!-- link to vue -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-	
+
 	<!-- link to vuetify  -->
  	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.js"></script>
- 	 
+
 	<script>
 	const { createApp } = Vue
 	const { createVuetify } = Vuetify
@@ -61,5 +73,5 @@
 	app.use(vuetify).mount('#app')
 
 	</script>
-</body> 
+</body>
 </html>
