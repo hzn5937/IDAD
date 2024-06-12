@@ -8,13 +8,104 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.6.8/dist/vuetify.min.css">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="container-fluid">
         <v-app>
             <v-main>
                 <v-container>
                     <v-card-title class="headline">
                         Registration Form
                     </v-card-title>
+                    <v-form ref="myForm" method="post" action="http://mercury.swin.edu.au/it000000/formtest/php">
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field 
+                                name="firstName" 
+                                v-model="firstName" 
+                                label="First Name" 
+                                :rules="[rules.required, rules.onlyLetter]"
+                                ></v-text-field>
+                            </div>
+                            <div class="col">
+                                <v-text-field 
+                                name="lastName" 
+                                v-model="lastName" 
+                                label="Last Name" 
+                                :rules="[rules.required, rules.onlyLetter]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field 
+                                name="username" 
+                                v-model="username" 
+                                label="Username" 
+                                :rules="[rules.required, rules.min(3)]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field
+                                name="password"
+                                v-model="password"
+                                label="Password"
+                                type="password"
+                                :rules="[rules.required, rules.min(8), rules.specialCharacter]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field
+                                name="cPassword"
+                                v-model="cPassword"
+                                label="Confirm Password"
+                                type="password"
+                                :rules="[rules.required, rules.passwordMatch]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field
+                                name="email"
+                                v-model="email"
+                                label="Email"
+                                :rules="[rules.required, rules.email]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field
+                                name="streetAddress"
+                                v-model="streetAddress"
+                                label="Street Address"
+                                :rules="[rules.max(40)]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <v-text-field
+                                name="suburb"
+                                v-model="suburb"
+                                label="Suburb"
+                                :rules="[rules.max(20)]"
+                                ></v-text-field>
+                            </div>
+                            <div class="col">
+                                <v-text-field
+                                name="postcode"
+                                v-model="postcode"
+                                label="Postcode"
+                                :rules="[rules.postcode]"
+                                ></v-text-field>
+                            </div>
+                        </div>
+						<v-btn  type="submit" color="success">Submit</v-btn>
+                    </v-form>
                 </v-container>
             </v-main>
         </v-app>

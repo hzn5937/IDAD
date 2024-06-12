@@ -3,19 +3,30 @@ const { createVuetify } = Vuetify
 
 const vuetify = createVuetify( )  
 const app = createApp({
-    
     data: () => ({
-        firstName: '', email: '',
-        
-        nameRules: [
-        v => !!v || 'Name required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters' 
-        ],
-        
-        emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(v) || 'E-mail must be valid',
-        ]
+        rules: {
+            required: value => !!value || 'This field is required.',
+            onlyLetter: value => /^[a-zA-Z]*$/.test(value) || 'Only letters are allowed.',
+            min(length) { 
+                return value => (value || '').length >= length || `Minimum of ${length} characters are required.`
+            },
+            max(length) {
+                return value => (value || '').length <= length || `Maximum of ${length} characters are allowed.`
+            },
+            specialCharacter: value => /[$%^&*]/.test(value) || 'Must contain at least 1 special character',
+            passwordMatch: value => value === this.password || 'Password does not match',
+            email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
+            postcode: value => /^[0-9]{4}$/.test(value) || 'Postcode must be 4 digits',
+        },
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        cPassword: "",
+        email: "",
+        streetAddress: "",
+        suburb: "",
+        postcode: "",
     })
 })
 
