@@ -65,14 +65,14 @@ app.component("app-lookup", {
                     </tr>
                 </thead>
                 <tbody>
-                <tr v-for="unit in units">
-                <td>{{unit.code}}</td>
-                <td>{{unit.desc}}</td>
-                <td><router-link :to="'/unit/' + unit.code">show details</router-link></td>
-                </tr>
+                    <tr v-for="unit in units">
+                        <td>{{unit.code}}</td>
+                        <td>{{unit.desc}}</td>
+                        <td><router-link :to="'/unit/' + unit.code">show details</router-link></td>
+                    </tr>
                 </tbody>
-                </table>
-                </div>
+            </table>
+            </div>
         `,
 });
 app.use(router);
