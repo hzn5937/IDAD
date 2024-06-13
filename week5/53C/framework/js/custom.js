@@ -52,6 +52,7 @@ app.component("app-lookup", {
         };
     },
     template: `
+            <router-view></router-view>
             <h1>Unit Information System</h1>
             <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -63,15 +64,14 @@ app.component("app-lookup", {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="unit in units">
-                        <td>{{unit.code}}</td>
-                        <td>{{unit.desc}}</td>
-                        <td><router-link :to="'/unit/' + unit.code">show details</router-link></td>
-                    </tr>
+                <tr v-for="unit in units">
+                <td>{{unit.code}}</td>
+                <td>{{unit.desc}}</td>
+                <td><router-link :to="'/unit/' + unit.code">show details</router-link></td>
+                </tr>
                 </tbody>
-            </table>
-            </div>
-            <router-view></router-view>
+                </table>
+                </div>
         `,
 });
 app.use(router);

@@ -1,7 +1,7 @@
-const { createApp } = Vue
+const { createApp } = Vue;
 const { createVuetify } = Vuetify
 
-const vuetify = createVuetify( )  
+const vuetify = createVuetify();
 const app = createApp({
     data: () => ({
         rules: {
@@ -17,6 +17,10 @@ const app = createApp({
             passwordMatch: value => value === this.password || 'Password does not match',
             email: value => /.+@.+\..+/.test(value) || 'E-mail must be valid',
             postcode: value => /^[0-9]{4}$/.test(value) || 'Postcode must be 4 digits',
+            passwordMatch(password) {
+                return value => value === password || 'Password does not match'
+            },
+            phone: value => /^04[0-9]{8}$/.test(value) || 'Phone number must start with 04 and be 10 digits long',
         },
         firstName: "",
         lastName: "",
@@ -27,8 +31,13 @@ const app = createApp({
         streetAddress: "",
         suburb: "",
         postcode: "",
-    })
+        phoneNumber: "",
+        show: false,
+    }),
+    methods: {
+
+    }
 })
 
-app.use(vuetify)
-app.mount('#app')
+app.use(vuetify);
+app.mount("#app");
