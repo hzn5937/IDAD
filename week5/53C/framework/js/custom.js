@@ -16,8 +16,9 @@ const Unit = {
         return { units };
     },
     //define the template for the route results
-    template: `<div><h2> Unit Code: {{$route.params.id}}</h2>
+    template: `<div>
         <ul v-for='unit in filteredUnits'>
+            <h2> Unit Code: {{unit.code}}</h2>
             <li>{{unit.code}}</li>
             <li>{{unit.desc}}</li>
             <li>{{unit.cp}}</li>
@@ -27,7 +28,7 @@ const Unit = {
     computed: {
         //filter function (returns the selected unit object )
         filteredUnits: function () {
-            return this.units.filter((unit) => unit.code === this.$route.params.id);
+            return this.units.filter((unit) => unit.code.toLowerCase() === this.$route.params.id.toLowerCase());
         },
     },
 };
@@ -52,6 +53,7 @@ app.component("app-lookup", {
         };
     },
     template: `
+            <router-view></router-view>
             <h1>Unit Information System</h1>
             <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -71,7 +73,6 @@ app.component("app-lookup", {
                 </tbody>
             </table>
             </div>
-            <router-view></router-view>
         `,
 });
 app.use(router);

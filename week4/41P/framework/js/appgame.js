@@ -26,9 +26,9 @@ Vue.createApp({
             this.message = "The number was: " + this.result;
         },
         startOver() {
-            this.message = "Start Guessing";
+            this.guess = this.result;
+            this.message = `Start Guessing`;
             this.result = this.newNumber();
-            this.guess = "";
         },
         newNumber() {
             return Math.floor(Math.random() * 100) + 1;
