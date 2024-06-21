@@ -9,12 +9,11 @@
 	<div id="app">
       	<app-readjson></app-readjson>   
 	</div>
-      
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	
+
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-	
 	<script>  <!--   embedded this short js here for easy distribution  -->
 	
 	const { createApp } = Vue
@@ -35,8 +34,9 @@
 			var self = this;
 			$.getJSON('https://jsonplaceholder.typicode.com/posts', function(data) {
 				self.msg = data; 
-    			})
-			.fail(function() { alert('getJSON request failed! '); })
+			}).fail(function() { 
+				alert('getJSON request failed! '); 
+			})
   		}
 	})
 	
