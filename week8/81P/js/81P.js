@@ -76,7 +76,7 @@ app.component("student-table", {
                 :click-handler="clickCallback" 
                 :prev-text=" 'Prev' " 
                 :next-text="'Next'" 
-                :container-class="'pagination'" 
+                :container-class="'pagination'">
                 </paginate>
             </v-row>
         </v-col>
