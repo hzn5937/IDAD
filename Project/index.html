@@ -9,10 +9,24 @@
 </head>
 <body>
     <div id="app">
+        <v-app>
+            <v-main>
+                <v-container fluid>
+                    <router-view @authenticated="setAuthenticated"></router-view>
+                </v-container>
+            </v-main>
+        </v-app>
     </div>
 
     <script src="https://unpkg.com/vue@3.4.27/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.8/dist/vuetify.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="https://unpkg.com/vuejs-paginate-next@latest/dist/vuejs-paginate-next.umd.js"></script>
+
+    <script src="js/components/app-login.js"></script>
+    <script src="js/components/app-signup.js"></script>
+    <script src="js/components/app-dashboard.js"></script>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
