@@ -12,9 +12,12 @@ app.component("read-data", {
         }
     },
     mounted() {
-        unitsUrl = "https://mercury.swin.edu.au/cos30043/s104045937/72P/units.json"
-        
-        fetch(unitsUrl).then(response => {
+        mercuryUrl = "https://mercury.swin.edu.au/cos30043/s104045937/72P/units.json"
+        liveUrl = "http://127.0.0.1:5500/72P/units.json"
+        vscodeUrl = "http://127.0.0.1:3000/72P/units.json"
+        relativeUrl = "./units.json"
+
+        fetch(relativeUrl).then(response => {
             return response.json()
         }).then(data => {
             this.units = data
@@ -41,6 +44,7 @@ app.component("read-data", {
                 </tr>
             </tbody>
         </v-table>
+        {{this.err}}
     `
 })
 
