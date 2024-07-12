@@ -37,6 +37,7 @@ const app = createApp({
         setAuthenticated(status) {
             this.authenticated = status
         },
+        
         logout() {
             this.authenticated = false
         }
