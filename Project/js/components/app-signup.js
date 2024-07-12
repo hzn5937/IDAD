@@ -15,8 +15,8 @@ const signup = {
                     <v-card-title>Sign up to start listening</v-card-title>
                     <v-card-text>
                         <v-form>
-                            <v-text-field label="Username"></v-text-field>
-                            <v-text-field label="Password"></v-text-field>
+                            <v-text-field label="Username" variant="outlined"></v-text-field>
+                            <v-text-field label="Password" variant="outlined" type="password"></v-text-field>
                             <v-btn class="bg-green">Signup</v-btn>
                         </v-form>
                     </v-card-text>

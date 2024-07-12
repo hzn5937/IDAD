@@ -1,6 +1,11 @@
 const login = {
     data() {
-        return 
+        return {
+            input: {
+                username: "",
+                password: "",
+            }
+        }
     },
     template: `
         <v-row justify="center">
@@ -9,8 +14,8 @@ const login = {
                     <v-card-title>Login</v-card-title>
                     <v-card-text>
                         <v-form>
-                            <v-text-field label="Username"></v-text-field>
-                            <v-text-field label="Password"></v-text-field>
+                            <v-text-field label="Username" variant="outlined"></v-text-field>
+                            <v-text-field label="Password" variant="outlined" type="password"></v-text-field>
                             <v-btn class="bg-green">Login</v-btn>
                         </v-form>
                     </v-card-text>
@@ -19,8 +24,8 @@ const login = {
         </v-row>
         <v-row justify="center">
             <v-col cols="12" md="6" lg="5" xl="4">
-                <v-card variant="text">
-                    <v-card-text>Don't have an account?
+                <v-card variant="text" color="grey">
+                    <v-card-text class="gray--text">Don't have an account?
                         <router-link to="/signup">
                             <v-btn variant="text text-decoration-underline">
                                 sign up

@@ -1,5 +1,10 @@
 const { createApp } = Vue
 const { createVuetify } = Vuetify
+const vuetify = createVuetify({
+    theme: {
+        defaultTheme: "dark",
+      },
+})  
 
 const router = VueRouter.createRouter({
 	history: VueRouter.createWebHashHistory(), 
@@ -22,7 +27,6 @@ const router = VueRouter.createRouter({
     ]
 })
 
-const vuetify = createVuetify( )  
 const app = createApp({
 
     data: () => ({
