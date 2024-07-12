@@ -3,8 +3,8 @@ const login = {
         return 
     },
     template: `
-        <v-row>
-            <v-col cols="12">
+        <v-row justify="center">
+            <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card>
                     <v-card-title>Login</v-card-title>
                     <v-card-text>
@@ -17,8 +17,8 @@ const login = {
                 </v-card>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
+        <v-row justify="center">
+            <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card variant="text">
                     <v-card-text>Don't have an account?
                         <router-link to="/signup">

@@ -9,8 +9,8 @@ const signup = {
         }
     },
     template: `
-        <v-row>
-            <v-col cols="12">
+        <v-row justify="center">
+            <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card>
                     <v-card-title>Sign up to start listening</v-card-title>
                     <v-card-text>
@@ -23,8 +23,8 @@ const signup = {
                 </v-card>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
+        <v-row justify="center">
+            <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card variant="text">
                     <v-card-text>Already have an account?
                         <router-link to="/login">
