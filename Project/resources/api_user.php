@@ -32,7 +32,7 @@ switch ($method) {
 $result = mysqli_query($conn,$sql);
 if ($result) {
 	if ($method == 'POST') {
-			echo json_encode(mysqli_fetch_object($result));
+		echo json_encode(mysqli_fetch_object($result));
 
 	} else {
 		echo mysqli_affected_rows($conn);

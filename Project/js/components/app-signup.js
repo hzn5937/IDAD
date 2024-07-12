@@ -4,14 +4,13 @@ const signup = {
             rules: {
                 required: value => !!value || 'Required.',
                 min: v => v.length >= 8 || 'Min 8 characters',
-                emailMatch: () => ('The email and password you entered don\'t match')
             },
             input: {
-                username: "a",
-                password: "",
+                username: "admin",
+                password: "123123123",
             },
             msg: "",
-            error: ""
+            alertColor: "",
         }
     },
     template: `
@@ -19,13 +18,25 @@ const signup = {
             <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card>
                     <v-card-title>Sign up to start listening</v-card-title>
-                    <v-alert v-if="msg" closable icon="mdi-check-circle" :text="msg" color="success"></v-alert>
-                    <v-alert v-if="error" closable icon="mdi-alert-circle" :text="error" color="error"></v-alert>
+                    <v-alert v-if="msg" icon="mdi-check-circle" :text="msg" :color="alertColor"></v-alert>
                     <v-card-text>
-                        <v-form @submit="signup">
-                            <v-text-field label="Username" variant="outlined" v-model="input.username"></v-text-field>
-                            <v-text-field label="Password" variant="outlined" v-model="input.password" type="password"></v-text-field>
-                            <v-btn class="bg-green" type="submit" @click="signup()">Signup</v-btn>
+                        <v-form @submit.prevent="signup">
+                            <v-text-field 
+                                class="mt-3"
+                                label="Username" 
+                                variant="outlined" 
+                                v-model="input.username"
+                                :rules="[rules.required]">
+                            </v-text-field>
+                            <v-text-field 
+                                class="mt-3"
+                                label="Password" 
+                                variant="outlined"
+                                v-model="input.password" 
+                                type="password"
+                                :rules="[rules.required, rules.min]">
+                            </v-text-field>
+                            <v-btn class="bg-green mt-3" type="submit">Signup</v-btn>
                         </v-form>
                     </v-card-text>
                 </v-card>
@@ -55,22 +66,21 @@ const signup = {
                 },
                 body: JSON.stringify({
                     username: this.input.username,
-                    password: this.input.password 
+                    password: this.input.password
                 })
             };
 
             fetch("resources/api_registration.php", requestOptions)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch');
-                }
                 return response.json();
             })
             .then(data => { 
                 this.msg = data.message;
+                this.alertColor = data.alertColor;
             })
             .catch(error => {
                 this.error = "Error: " + error.message;
+                this.alertColor = data.alertColor;
             });
         }
     }

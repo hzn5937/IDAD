@@ -16,9 +16,9 @@ const login = {
                     <v-alert v-if="msg" closable icon="mdi-alert-circle" :text="msg" color="error"></v-alert>
                     <v-card-text>
                         <v-form @submit="login">
-                            <v-text-field label="Username" variant="outlined" v-model="input.username"></v-text-field>
-                            <v-text-field label="Password" variant="outlined" type="password" v-model="input.password"></v-text-field>
-                            <v-btn class="bg-green" type="submit" @click="login()">Login</v-btn>
+                            <v-text-field class="mt-3" label="Username" variant="outlined" v-model="input.username"></v-text-field>
+                            <v-text-field class="mt-3" label="Password" variant="outlined" type="password" v-model="input.password"></v-text-field>
+                            <v-btn class="bg-green mt-3" type="submit" @click="login()">Login</v-btn>
                         </v-form>
                     </v-card-text>
                 </v-card>
