@@ -1,0 +1,25 @@
+Technical Requirement:
+1. implement a responsive design using the row-column grid system to effectively organize content and layout.
+2. Utilize VueJS components, routers, and custom directives to build a modular and maintainable codebase.
+3. Demonstrate skilled use of arrays for dynamic data handling.
+4. Implement core VueJS directives such as v-bind, v-model, v-if, v-for, and v-on to create interactive and reactive UIs.
+5. Utilize forms with data validation.
+6. Adhere to a mobile-first approach, ensuring your application is fully responsive across at least three device sizes.
+7. Prioritize accessibility in input forms and tables to ensure usability for all users.
+8. Apply HTML5 coding conventions consistently, including proper case usage and indenta-tion for readability and professionalism.
+9. Utilize methods and computed properties.
+10. Incorporate data from external sources or data APIs
+
+Functional Requirement:
+1. Implement features for user registration, login, and differentiation in content visibility between authenticated and unauthenticated users
+2. Include capabilities for all users to search for content and use filters to refine results.
+3. Integrate social functionalities, such as liking or voting on content.
+4. Allow authorized users to create, edit, and delete content.
+5. Maintain some form of persistent data, through a backend database, JSON files, and so on.
+
+
+lacking:
+2. Include capabilities for all users to search for content and use filters to refine results.
+3. Integrate social functionalities, such as liking or voting on content.
+4. Allow authorized users to create, edit, and delete content.
+5. Maintain some form of persistent data, through a backend database, JSON files, and so on.
