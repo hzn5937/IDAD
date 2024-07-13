@@ -103,25 +103,6 @@ const dashboard = {
             }
             return number
         },
-        steppedNumberOfAlbums: function() {
-            var number = [];
-            for (let i = 0; i <= this.albums.length; i += 4 )
-            {
-                number.push(i)
-            }
-            return number
-        },
-        computedImages: function() {
-            var images = []
-            for (let i = 0; i < this.albums.length; i++) {
-                images.push({
-                    url: this.albums[i].images[0]?.url || "",
-                    height: this.albums[i].images[0]?.height || 0,
-                    width: this.albums[i].images[0]?.width || 0
-                })
-            }
-            return images
-        }
     },
     template: `
         <v-row>
