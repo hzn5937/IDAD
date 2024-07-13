@@ -1,12 +1,13 @@
 const dashboard = {
     data() {
         return {
-            test: 0,
+            genreMenuHeight: 0,
+            browseMenuHeight: 0,
             token: "",
-            albums: [],
-            genres: [],
             tab: "home",
             search: "nothing",
+            albums: [],
+            genres: [],
             searchResult: [],
         }
     },
@@ -44,6 +45,7 @@ const dashboard = {
         })
         const genresData = await genresResult.json()
         this.genres = genresData.genres
+        this.browseMenuHeight = this.browseSectionSize()
     },
     methods: {
         load ({ done }) {
@@ -53,15 +55,22 @@ const dashboard = {
         },
         clickHome() {
             this.tab = "home"
+            setTimeout(() => {
+                this.browseMenuHeight = this.browseSectionSize()
+            }, 10)
         },
         clickSearch() {
             this.tab = "search"
             setTimeout(() => {
-                this.test = this.genreSectionSize()
+                this.genreMenuHeight = this.genreSectionSize()
             }, 10)
         },
         genreSectionSize: function() {
+            // 25 is the padding of the search bar
             return this.$refs.searchCard.$el.offsetHeight - this.$refs.searchBar.$el.offsetHeight - 25
+        },
+        browseSectionSize:function() {
+            return this.$refs.homeCard.$el.offsetHeight - this.$refs.userBar.$el.offsetHeight - 25
         },
         searchByGenre: function(genre) {
             this.search = genre
@@ -83,16 +92,35 @@ const dashboard = {
         
     },
     computed: {
-        steppedNumbers: function() {
+        // v-for doesnt support stepping
+        // create an array of numbers and go through each of them 
+        // (1,4,7,10) to simulate stepping
+        steppedNumbersOfGenres: function() {
             var number = [];
-            // v-for doesnt support stepping
-            // create an array of numbers and go through each of them 
-            // (1,4,7,10) to simulate stepping
             for (let i = 0; i <= this.genres.length; i += 3 )
             {
                 number.push(i)
             }
             return number
+        },
+        steppedNumberOfAlbums: function() {
+            var number = [];
+            for (let i = 0; i <= this.albums.length; i += 4 )
+            {
+                number.push(i)
+            }
+            return number
+        },
+        computedImages: function() {
+            var images = []
+            for (let i = 0; i < this.albums.length; i++) {
+                images.push({
+                    url: this.albums[i].images[0]?.url || "",
+                    height: this.albums[i].images[0]?.height || 0,
+                    width: this.albums[i].images[0]?.width || 0
+                })
+            }
+            return images
         }
     },
     template: `
@@ -117,8 +145,13 @@ const dashboard = {
             </v-col>
             <v-col cols="10" lg="9" md="8" sm="8">
                 <v-row>
-                    <v-card width="99%" height="90.4vh" ref="homeCard" v-show="tab=='home'">
+                    <v-card width="99%" height="90vh" ref="homeCard" v-show="tab=='home'" class="overflow-auto">
                         <v-card-text>
+                        <v-row ref="userBar">
+                            <v-col class="d-flex flex-row-reverse">
+                                <v-icon size=50>mdi-account-circle</v-icon>
+                            </v-col>
+                        </v-row>
                         <v-row>
                             <v-card v-for="album in albums" :max-width="300" class="mb-3" variant="text">
                                 <v-card-text>
@@ -127,11 +160,10 @@ const dashboard = {
                                 <v-card-title>{{album.name}}</v-card-title>
                                 <v-card-subtitle>{{album.artists[0].name}}</v-card-subtitle>
                             </v-card>
-                            
                         </v-row>
                         </v-card-text>
                     </v-card>
-                    <v-card width="99%" height="90.4vh" ref="searchCard" v-show="tab=='search'">
+                    <v-card width="99%" height="90vh" ref="searchCard" v-show="tab=='search'" class="overflow-auto">
                         <v-card-text>
                             <v-row ref="searchBar">
                                 <v-col cols="4">
@@ -141,27 +173,18 @@ const dashboard = {
                                     <v-icon size=50>mdi-account-circle</v-icon>
                                 </v-col>
                             </v-row>
-                            <v-row>
-                                <v-infinite-scroll :height="this.test" width="100%" :genres="genres" mode="manual" @load="load">
-                                    <template v-for="n in steppedNumbers">
-                                        <v-row>
-                                            <v-col>
-                                                <v-btn @click="searchByGenre(genres[n])" v-if="n<=genres.length-1">{{n}}. {{ genres[n] }}</v-btn>
-                                            </v-col>
-                                            <v-col>
-                                                <v-btn @click="searchByGenre(genres[n+1])" v-if="n+1<=genres.length-1">{{n+1}}. {{ genres[n+1] }}</v-btn>
-                                            </v-col>
-                                            <v-col>
-                                                <v-btn @click="searchByGenre(genres[n+2])" v-if="n+2<=genres.length-1">{{n+2}}. {{ genres[n+2] }}</v-btn>
-                                            </v-col>
-                                        </v-row>
-
-                                    </template>
-                                    <template v-slot:empty>
-                                        <v-alert type="success" closable>All genres are loaded.</v-alert>
-                                    </template>
-                                </v-infinite-scroll>
+                            <v-row v-for="i in steppedNumbersOfGenres">
+                                <v-col>
+                                    <v-btn @click="searchByGenre(genres[i])" v-if="i <= genres.length-1">{{i+1}}.{{genres[i]}}</v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-btn @click="searchByGenre(genres[i+1])" v-if="i+1 <= genres.length-1">{{i+2}}.{{genres[i+1]}}</v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-btn @click="searchByGenre(genres[i+2])" v-if="i+2 <= genres.length-1">{{i+3}}.{{genres[i+2]}}</v-btn>
+                                </v-col>
                             </v-row>
+
                         </v-card-text>
                     </v-card>
                 </v-row>
