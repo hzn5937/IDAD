@@ -88,7 +88,7 @@ const dashboard = {
             // v-for doesnt support stepping
             // create an array of numbers and go through each of them 
             // (1,4,7,10) to simulate stepping
-            for (let i = 1; i <= this.genres.length; i += 3 )
+            for (let i = 0; i <= this.genres.length; i += 3 )
             {
                 number.push(i)
             }
@@ -146,7 +146,7 @@ const dashboard = {
                                     <template v-for="n in steppedNumbers">
                                         <v-row>
                                             <v-col>
-                                                <v-btn @click="searchByGenre(genres[n])">{{n}}. {{ genres[n] }}</v-btn>
+                                                <v-btn @click="searchByGenre(genres[n])" v-if="n<=genres.length-1">{{n}}. {{ genres[n] }}</v-btn>
                                             </v-col>
                                             <v-col>
                                                 <v-btn @click="searchByGenre(genres[n+1])" v-if="n+1<=genres.length-1">{{n+1}}. {{ genres[n+1] }}</v-btn>
