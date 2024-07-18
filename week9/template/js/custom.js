@@ -3,11 +3,9 @@ const { createVuetify } = Vuetify
 
 const vuetify = createVuetify( )  
 const app = createApp({
-    data() {
-        return {
-            msg: "haha"
-        }
-    }
+    data: () => ({
+       
+    })
 })
 
 app.use(vuetify)
