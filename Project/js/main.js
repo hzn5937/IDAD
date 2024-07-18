@@ -1,10 +1,4 @@
-const { createApp } = Vue
-const { createVuetify } = Vuetify
-const vuetify = createVuetify({
-    theme: {
-        defaultTheme: "dark",
-      },
-})  
+
 
 const router = VueRouter.createRouter({
 	history: VueRouter.createWebHashHistory(), 
@@ -27,35 +21,38 @@ const router = VueRouter.createRouter({
     ]
 })
 
-const app = createApp({
+const app = Vue.createApp({
 
-    data: () => ({
-       authenticated: false,
-    }),
-
-    methods: {
-        setAuthenticated(status) {
-            this.authenticated = status
-        },
-        
-        logout() {
-            this.authenticated = false
-        }
-    },
-
-    mounted() {
+	data: function () {
+		return {
+			authenticated: false,
+			authenticatedUser: '',
+			error:false,
+			errorMsg:'',
+		}
+	},
+   mounted() {
         if(!this.authenticated) {
-            this.$router.replace({ name: "dashboard" });
-        }
-    }
-})
+                this.$router.replace({ name: "dashboard" });
+            }
+        },
+	methods: {
+		setAuthenticated(status) {
+			this.authenticated = status;
+
+		},
+	},  
+    
+});
 
 
+const vuetify = Vuetify.createVuetify({
+    theme: {
+        defaultTheme: "dark",
+      },
+})  
 
-app.component("app-signup", signup)
-app.component("app-login", login)
-app.component("dashboard", dashboard)
 
-app.use(router)
 app.use(vuetify)
+app.use(router)
 app.mount('#app')

@@ -3,6 +3,14 @@
 }
 
 body {
+    overflow-x: hidden; /* Hide scrollbars */
+}
+
+.v-infinite-scroll .v-infinite-scroll__wrapper{
+    overflow-x: hidden;
+}
+
+body {
     box-sizing: border-box;
     margin: 0;
     overflow-x: hidden;
