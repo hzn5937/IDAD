@@ -10,7 +10,7 @@ const view = {
     components: {
         paginate: VuejsPaginateNext,
     },
-    created() {
+    mounted() {
         fetch("data/units.json").
         then(response => {
             return response.json()

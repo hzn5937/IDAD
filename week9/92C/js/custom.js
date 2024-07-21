@@ -43,6 +43,7 @@ const app = createApp({
 
 app.component("app-view", view)
 app.component("app-insert", insert)
+app.component("app-update", update)
 
 app.component('app-bar', {
     template: `

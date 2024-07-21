@@ -18,7 +18,8 @@ const dashboard = {
         <v-tab-items v-model="tab">
             <v-card>
                 <app-view v-if="tab==1"></app-view>
-                <app-insert v-if="tab==2"></app-insert>            
+                <app-insert v-if="tab==2"></app-insert>         
+                <app-update v-if="tab==3"></app-update>   
             </v-card>    
         </v-tab-items>
     `
