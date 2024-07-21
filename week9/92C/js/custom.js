@@ -41,8 +41,8 @@ const app = createApp({
     }
 })
 
-app.component('app-login', login)
-app.component('app-dashboard', dashboard)
+app.component("app-view", view)
+app.component("app-insert", insert)
 
 app.component('app-bar', {
     template: `
