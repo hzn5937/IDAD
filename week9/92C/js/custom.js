@@ -36,7 +36,7 @@ const app = createApp({
     },
     mounted() {
         if (!this.authenticated) {
-            this.$router.replace({ name: 'dashboard' })
+            this.$router.replace({ name: 'login' })
         }
     }
 })
@@ -44,6 +44,7 @@ const app = createApp({
 app.component("app-view", view)
 app.component("app-insert", insert)
 app.component("app-update", update)
+app.component("app-delete", del)
 
 app.component('app-bar', {
     template: `

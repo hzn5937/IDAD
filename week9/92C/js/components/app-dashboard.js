@@ -1,7 +1,7 @@
 const dashboard = {
     data() {
         return {
-            tab: "2"
+            tab: "1"
         }
     },
     template: `
@@ -16,11 +16,14 @@ const dashboard = {
         <v-tab value="4">delete</v-tab>
         </v-tabs>
         <v-tab-items v-model="tab">
+            <v-tab-item>
             <v-card>
                 <app-view v-if="tab==1"></app-view>
                 <app-insert v-if="tab==2"></app-insert>         
                 <app-update v-if="tab==3"></app-update>   
+                <app-delete v-if="tab==4"></app-delete>
             </v-card>    
+            </v-tab-item>
         </v-tab-items>
     `
 }

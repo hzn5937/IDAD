@@ -11,7 +11,7 @@ const view = {
         paginate: VuejsPaginateNext,
     },
     mounted() {
-        fetch("data/units.json").
+        fetch("resources/api_units.php").
         then(response => {
             return response.json()
         }).then(data => {
@@ -50,7 +50,7 @@ const view = {
                     <tbody>
                         <tr v-for="unit in displayUnits">
                             <td>{{ unit.code }}</td>
-                            <td>{{ unit.desc }}</td>
+                            <td>{{ unit.description }}</td>
                             <td>{{ unit.cp }}</td>
                             <td>{{ unit.type }}</td>
                         </tr>
@@ -58,7 +58,7 @@ const view = {
                 </v-table>
             </v-col>
         </v-row>
-        <v-row></v-row>
+        <v-row>
             <v-col cols="12">
                 <paginate
                 :page-count="pageCount"

@@ -13,7 +13,7 @@
         <v-app>
             <v-main>
                 <v-container>
-                    <v-app-bar v-if="" >
+                    <v-app-bar v-if="authenticated">
 						<app-bar></app-bar>
 					</v-app-bar>
                     <router-view @authenticated="setAuthenticated"></router-view>
@@ -32,6 +32,7 @@
     <script src="js/components/app-view.js"></script>
     <script src="js/components/app-insert.js"></script>
     <script src="js/components/app-update.js"></script>
+    <script src="js/components/app-delete.js"></script>
 
     <script src="js/custom.js"></script>
 </body>

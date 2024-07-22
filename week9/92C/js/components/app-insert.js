@@ -6,19 +6,19 @@ const insert =
         <v-row class="mt-3">
             <v-col>
                 <v-row class="ms-2">
-                    <v-text-field label="code" v-model="input.code"></v-text-field>
+                    <v-text-field required label="code" v-model="input.code"></v-text-field>
                 </v-row>
                 <v-row class="ms-2">
-                    <v-text-field label="description" v-model="input.desc"></v-text-field>
+                    <v-text-field required label="description" v-model="input.desc"></v-text-field>
                 </v-row>
             </v-col>
             <v-col>
                 <label>Type:</label><br>
-                <input type="radio" id="core" v-model="input.type" value="Core">
+                <input name="type" type="radio" id="core" v-model="input.type" value="Core" required>
                 <label for="core">&ThickSpace; Core</label><br>
-                <input type="radio" id="sd" v-model="input.type" value="Software Development">
+                <input name="type" type="radio" id="sd" v-model="input.type" value="Software Development">
                 <label for="sd">&ThickSpace; Software Development</label><br>
-                <input type="radio" id="sa" v-model="input.type" value="Systems Analysis">
+                <input name="type" type="radio" id="sa" v-model="input.type" value="Systems Analysis">
                 <label for="sa">&ThickSpace; Systems Analysis</label><br>
             </v-col>
         </v-row>
@@ -41,6 +41,15 @@ const insert =
     },
     methods: {
         insert(unit) {
+            this.msg = {}
+
+            if (unit.code == "" || unit.desc == "" || unit.type == "") {
+                setTimeout(() => {
+                    this.msg.error = "All fields are required!"
+                }, 300);
+                return
+            }
+
             api = "resources/api_units.php"
             options = {
                 method: "POST",
@@ -59,9 +68,11 @@ const insert =
             then(response => {
                 return response.json()
             }).then(data => {
-                this.msg = data
+                setTimeout(() => {
+                    this.msg = data
+                }, 300)
             }).catch(error => {
-                this.error = error
+                this.msg.error = error
             })
         }
     },

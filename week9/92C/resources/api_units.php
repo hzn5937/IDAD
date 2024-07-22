@@ -6,6 +6,24 @@
 
     switch ($method)
     {
+        case "GET":
+            $result = array();
+            $sql = "SELECT * FROM `units`";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0)
+            {
+                $units = array();
+                while ($row = $result->fetch_assoc())
+                {
+                    $units[] = $row;
+                }
+                echo json_encode($units);
+            }
+            else
+            {
+                echo json_encode($result);
+            }
+            break;
         case "POST":
             $result = array();
             $code = $input['code'];
@@ -34,7 +52,41 @@
                 }
             }
             echo json_encode($response);
-
+            break;
+        case "PUT":
+            $result = array();
+            $code = $input['code'];
+            $desc = $input['desc'];
+            $cp = $input['cp'];
+            $type = $input['type'];
+            $sql = "UPDATE `units` SET `description` = '$desc', cp = '$cp', type = '$type'
+            WHERE code = '$code'";
+            $result = $conn->query($sql);
+            if ($result)
+            {
+                $response["success"] = "Unit updated successfully";
+            }
+            else
+            {
+                $response["error"] = "Error updating unit";
+            }
+            echo json_encode($response);
+            break;
+        case "DELETE":
+            $result = array();
+            $code = $input['code'];
+            $sql = "DELETE FROM `units` WHERE code = '$code'";
+            $result = $conn->query($sql);
+            if ($result)
+            {
+                $response["success"] = "Unit deleted successfully";
+            }
+            else
+            {
+                $response["error"] = "Error deleting unit";
+            }
+            echo json_encode($response);
+            break;
     }
 
 ?>

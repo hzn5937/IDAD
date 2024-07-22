@@ -49,11 +49,13 @@ const login = {
                 <v-card>
                     <v-card-title class='text-center'>Login</v-card-title>
                     <v-card-text>
+                        <v-form @submit="login">
                         <v-text-field label="username" v-model="input.username"></v-text-field>
                         <v-text-field label="password" v-model="input.password" type="password"></v-text-field>
                         <div class="d-flex justify-center">
-                            <v-btn rounded color="green" @click="login()" width="200">Login</v-btn>
+                            <v-btn rounded color="green" type="submit" width="200">Login</v-btn>
                         </div>
+                        </v-form>
                     </v-card-text>
                 </v-card>
                 
