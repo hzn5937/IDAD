@@ -6,10 +6,10 @@ const insert =
         <v-row class="mt-3">
             <v-col>
                 <v-row class="ms-2">
-                    <v-text-field required label="code" v-model="input.code"></v-text-field>
+                    <v-text-field required label="code" v-model="input.code" :rules="[rules.required]"></v-text-field>
                 </v-row>
                 <v-row class="ms-2">
-                    <v-text-field required label="description" v-model="input.desc"></v-text-field>
+                    <v-text-field required label="description" v-model="input.desc" :rules="[rules.required]"></v-text-field>
                 </v-row>
             </v-col>
             <v-col>
@@ -37,6 +37,9 @@ const insert =
                 cp: "12.5",
                 type: "",
             },
+            rules: {
+                required: value => !!value || 'Required.',
+            }
         }
     },
     methods: {

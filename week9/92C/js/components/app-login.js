@@ -6,6 +6,7 @@ const login = {
                 username: "",
                 password: "",
             },
+            
         }
     },
     methods: {
@@ -46,7 +47,9 @@ const login = {
     template: `
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="8" md="10" sm="10">
+                <v-alert class="mt-3" v-if="msg" color="red">{{msg}}</v-alert>
                 <v-card>
+                    
                     <v-card-title class='text-center'>Login</v-card-title>
                     <v-card-text>
                         <v-form @submit="login">
