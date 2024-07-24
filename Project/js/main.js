@@ -32,10 +32,13 @@ const app = Vue.createApp({
 		}
 	},
    mounted() {
+        // To-do: Change the route to login
         if(!this.authenticated) {
-                this.$router.replace({ name: "dashboard" });
-            }
-        },
+            this.$router.replace({ name: "login" });
+        } else {
+            this.$router.replace({ name: "dashboard" });
+        }
+    },
 	methods: {
 		setAuthenticated(status) {
 			this.authenticated = status;

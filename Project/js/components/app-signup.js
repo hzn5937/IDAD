@@ -6,6 +6,7 @@ const signup = {
                 min: v => v.length >= 8 || 'Min 8 characters',
             },
             input: {
+                // To-do: removes the hardcoded username and password
                 username: "admin",
                 password: "123123123",
             },

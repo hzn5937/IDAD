@@ -62,7 +62,7 @@ const dashboard = {
         const tracksData = await tracksApi.json()
         this.tracks = tracksData.tracks
 
-        window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/#/dashboard&scope=streaming user-read-email user-read-private`
+        window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/callback&scope=streaming user-read-email user-read-private`
     },
     methods: {
         clickHome() {
@@ -113,6 +113,7 @@ const dashboard = {
             this.searched = true
         },
         logout() {
+            localStorage.removeItem("userId")
             this.$emit("authenticated", false)
         }
         

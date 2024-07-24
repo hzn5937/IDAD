@@ -1,20 +1,4 @@
 <template>
-     <!-- <div class='row'>
-        <div class='col'>
-            <v-text-field label="status" v-model='strStatus' ></v-text-field>
-        </div>
-        <div class='col'>
-            <v-btn color="green" @click='add(strStatus)'>Post</v-btn>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col mt-3'>
-            <p v-for='(post, index) in statPosts' :key="post">
-                {{post}}
-                <v-btn color="red" @click='remove(index)' class='ms-1'>Del</v-btn>
-            </p>
-        </div>
-    </div> -->
     <div class="d-flex justify-center">
         <v-card width="80%" variant="text">
             <v-row class="ms-3">

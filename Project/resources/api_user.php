@@ -25,20 +25,34 @@ if (isset ($input))  {
 // create SQL
 switch ($method) {
   case 'POST':
-  	$sql = "select * from `$table` WHERE username='".$input['username']."' and password ='".$input['password']."'"; break;
+  	$sql = "select id from `$table` WHERE username='".$input['username']."' and password ='".$input['password']."'"; break;
 }
 
 // execute SQL statement
 $result = mysqli_query($conn,$sql);
-if ($result) {
-	if ($method == 'POST') {
-		echo json_encode(mysqli_fetch_object($result));
+// if ($result) {
+// 	if ($method == 'POST') {
+// 		echo json_encode(mysqli_fetch_object($result));
 
-	} else {
-		echo mysqli_affected_rows($conn);
-	}
+// 	} else {
+// 		echo mysqli_affected_rows($conn);
+// 	}
+// }
+
+$data = array();
+if ($result && $result->num_rows > 0)
+{
+	$row = $result->fetch_assoc();
+	
+	$data['state'] = 1;
+	$data['user_id'] = $row['id'];
+	echo json_encode($data, JSON_PRETTY_PRINT);	
+} else 
+{
+	$data['state'] = 0;
+	$data['msg'] = "Username or password is incorrect";
+	echo json_encode($data, JSON_PRETTY_PRINT);
 }
-
 // close mysql connection
 mysqli_close($conn);
 ?>

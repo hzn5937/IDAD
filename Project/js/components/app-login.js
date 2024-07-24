@@ -6,6 +6,7 @@ const login = {
                 password: "",
             },
             msg: "",
+            userId: null,
         }
     },
     template: `
@@ -61,11 +62,15 @@ const login = {
             })
             .then( data =>{ 
                 //This is the data you wanted to get from url
-                if (data == null) {// didn't find this username password pair
-                    self.msg="username or password incorrect.";
+                if (data.state == 0)
+                {
+                    this.msg = data.msg;
                 }
-                else{
-                    this.$emit("authenticated", true);//$emit() function allows you to pass custom events up the component tree.
+                else if (data.state == 1)
+                {
+                    this.userId = data;
+                    localStorage.setItem("userId", this.userId);
+                    this.$emit("authenticated", true);
                     this.$router.replace({ name: "dashboard" });
                 }
             })
@@ -73,6 +78,12 @@ const login = {
                 self.msg = "Error: "+error;
             });
 		},
-
+    },
+    mounted() {
+        if(localStorage.getItem("userId") != null)
+        {
+            this.$emit("authenticated", true);
+            this.$router.replace({ name: "dashboard" });
+        }
     }
 }
