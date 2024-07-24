@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Callback </h1>
+    <script>
+        const client_id = '9c613bc94240470db86c57dfed938509';
+        const client_secret = 'a4896f7afdbd4553898339d9f818d3ad';
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const paramValue = urlParams.get('code');
+        const paramValue2 = urlParams.get('state');
+
+        console.log(paramValue);
+
+        console.log(btoa(client_id + ":" + client_secret))
+
+        api = "https://accounts.spotify.com/api/token";
+        options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Basic " + btoa(client_id + ":" + client_secret)
+            },
+            body: "grant_type=authorization_code&code=" + paramValue + "&redirect_uri=http://localhost/idad/project/callback"
+        }
+
+        fetch(api, options)
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+    </script>
+</body>
+</html>
