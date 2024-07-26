@@ -41,7 +41,8 @@ const login = {
     `,
     methods: {
         login() {
-			
+			const client_id = '9c613bc94240470db86c57dfed938509';
+            
             var self = this; 
             // GET request using fetch with error handling
             const requestOptions = {
@@ -71,7 +72,9 @@ const login = {
                     this.userId = data;
                     localStorage.setItem("userId", this.userId);
                     this.$emit("authenticated", true);
-                    this.$router.replace({ name: "dashboard" });
+                    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/callback&scope=streaming user-read-email user-read-private`
+
+                    // this.$router.replace({ name: "dashboard" });
                 }
             })
             .catch(error => {
@@ -80,6 +83,8 @@ const login = {
 		},
     },
     mounted() {
+        
+
         if(localStorage.getItem("userId") != null)
         {
             this.$emit("authenticated", true);
