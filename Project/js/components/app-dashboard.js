@@ -13,6 +13,7 @@ const dashboard = {
             tracks: [],
             menuItems: ["LOGOUT"],
             genreError: "",
+            trackError: "",
             searched: false,
         }
     },
@@ -20,24 +21,30 @@ const dashboard = {
         this.contentSectionHeight = this.calculateContentSectionHeight()
         this.footerSectionHeight = this.calculteFooterSectionHeight()
         // redirect if not authenticated
-        const client_id = '9c613bc94240470db86c57dfed938509';
-        const client_secret = 'a4896f7afdbd4553898339d9f818d3ad';
+        if (!this.isLoggedIn())
+        {
+            this.$router.replace({ name: "login" })
+        }
 
-        const SpotifyWebApi = await fetch("https://accounts.spotify.com/api/token", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": "Basic " + btoa(client_id + ":" + client_secret),
-            },
-            body : "grant_type=client_credentials",
-        })  
-        const webToken = await SpotifyWebApi.json()
-        this.webToken = webToken.access_token
+        // To-do: determine if we still going to need this or not
+        // const client_id = '9c613bc94240470db86c57dfed938509';
+        // const client_secret = 'a4896f7afdbd4553898339d9f818d3ad';
+
+        // const SpotifyWebApi = await fetch("https://accounts.spotify.com/api/token", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded",
+        //         "Authorization": "Basic " + btoa(client_id + ":" + client_secret),
+        //     },
+        //     body : "grant_type=client_credentials",
+        // })  
+        // const webToken = await SpotifyWebApi.json()
+        // this.webToken = webToken.access_token
 
         const getGenresApi = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds",{
             method: "GET",
             headers: { 
-                "Authorization": "Bearer " + this.webToken
+                "Authorization": "Bearer " + localStorage.getItem("token")
             }
         })
         if (getGenresApi.ok)
@@ -56,15 +63,23 @@ const dashboard = {
         const tracksApi = await fetch("https://api.spotify.com/v1/recommendations?market=VN&seed_genres=pop", {
             method: "GET",
             headers: { 
-                "Authorization": "Bearer " + this.webToken
+                "Authorization": "Bearer " + localStorage.getItem("token")
             }
         })
-        const tracksData = await tracksApi.json()
-        this.tracks = tracksData.tracks
-
-        window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/callback&scope=streaming user-read-email user-read-private`
+        if (tracksApi.ok)
+        {
+            const tracksData = await tracksApi.json()
+            this.tracks = tracksData.tracks
+        }
+        else if (tracksApi.status == 429)
+        {
+            this.trackError = "429. Too many requests, please use the search bar."
+        }
     },
     methods: {
+        isLoggedIn() {
+            return localStorage.getItem("userId") != null
+        },
         clickHome() {
             this.tab = "home"
         },
@@ -89,7 +104,7 @@ const dashboard = {
             fetch(url, {
                 method: "GET",
                 headers: { 
-                    "Authorization": "Bearer " + this.webToken
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 }
             }).then(response => response.json())
             .then(data => { this.searchResult = data.tracks.items })
@@ -105,7 +120,7 @@ const dashboard = {
             fetch(url, {
                 method: "GET",
                 headers: { 
-                    "Authorization": "Bearer " + this.webToken
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 }
             }).then(response => response.json())
             .then(data => { this.searchResult = data.tracks.items })
@@ -175,6 +190,8 @@ const dashboard = {
                             </v-col>
                         </v-row>
                         <v-row>
+                            <v-alert v-if="trackError" type="error">{{trackError}}</v-alert>
+
                             <v-card v-for="track in tracks" :max-width="300" class="mb-3" variant="text">
                                 <v-card-text>
                                     <v-img :height="track.album.images[1].height" :width="track.album.images[1].width" :src="track.album.images[1].url"></v-img>
