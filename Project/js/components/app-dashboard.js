@@ -18,28 +18,70 @@ const dashboard = {
         }
     },
     async mounted() {
-        this.contentSectionHeight = this.calculateContentSectionHeight()
-        this.footerSectionHeight = this.calculteFooterSectionHeight()
+
         // redirect if not authenticated
         if (!this.isLoggedIn())
         {
             this.$router.replace({ name: "login" })
         }
 
-        // To-do: determine if we still going to need this or not
-        // const client_id = '9c613bc94240470db86c57dfed938509';
-        // const client_secret = 'a4896f7afdbd4553898339d9f818d3ad';
+        this.contentSectionHeight = this.calculateContentSectionHeight()
+        this.footerSectionHeight = this.calculteFooterSectionHeight()
+        
+        // Check if the token is still valid
+        const tracksApi = await fetch("https://api.spotify.com/v1/recommendations?market=VN&seed_genres=pop", {
+            method: "GET",
+            headers: { 
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
+        if (tracksApi.ok)
+        {
+            const tracksData = await tracksApi.json()
+            this.tracks = tracksData.tracks
+        }
+        else if (tracksApi.status == 401)
+        {
+            // renew access token
+            const url = "https://accounts.spotify.com/api/token"
+            const refreshToken = localStorage.getItem("refresh_token")
+            
+            const payload = {
+                methods: "POST",
+                headers: {
+                    "Content-Type" : "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    "grant_type": "refresh_token",
+                    "refresh_token": refreshToken,
+                    "client_id": "9c613bc94240470db86c57dfed938509",
+                })
+            }
 
-        // const SpotifyWebApi = await fetch("https://accounts.spotify.com/api/token", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded",
-        //         "Authorization": "Basic " + btoa(client_id + ":" + client_secret),
-        //     },
-        //     body : "grant_type=client_credentials",
-        // })  
-        // const webToken = await SpotifyWebApi.json()
-        // this.webToken = webToken.access_token
+            const refreshTokenApi = await fetch(url, payload)
+            if (refreshTokenApi.ok)
+            {
+                const data = await refreshTokenApi.json()
+                localStorage.setItem("token", data.access_token)
+                localStorage.setItem("refresh_token", data.refresh_token)
+            }
+            else 
+            {
+                localStorage.removeItem("userId")
+                localStorage.removeItem("token")
+                localStorage.removeItem("refresh_token")
+                this.$router.replace({ name: "login", params: { code: '401' } })
+            }
+        }
+        else if (tracksApi.status == 403)
+        {
+            this.trackError = "403. Application is in development mode, you need to ask project owner permission to use the API."
+        }
+        else if (tracksApi.status == 429)
+        {
+            this.trackError = "429. Too many requests, please use the search bar."
+        }
+        
 
         const getGenresApi = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds",{
             method: "GET",
@@ -54,26 +96,15 @@ const dashboard = {
         }
         else
         {
-            if (getGenresApi.status == 429)
+            
+            if (getGenresApi.status == 403)
+            {
+                this.genreError = "403. Application is in development mode, you need to ask project owner permission to use the API."
+            }
+            else if (getGenresApi.status == 429)
             {
                 this.genreError = "429. Too many requests, please use the search bar."
             }
-        }
-
-        const tracksApi = await fetch("https://api.spotify.com/v1/recommendations?market=VN&seed_genres=pop", {
-            method: "GET",
-            headers: { 
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        })
-        if (tracksApi.ok)
-        {
-            const tracksData = await tracksApi.json()
-            this.tracks = tracksData.tracks
-        }
-        else if (tracksApi.status == 429)
-        {
-            this.trackError = "429. Too many requests, please use the search bar."
         }
     },
     methods: {
@@ -112,6 +143,10 @@ const dashboard = {
             this.searched = true
         },
         searchApi: function(params) {
+            if (params == "")
+            {
+                return 
+            }
             let api = "https://api.spotify.com/v1/search?q="
             let queryString = `${params}`
             let type = "type=track"
@@ -131,7 +166,6 @@ const dashboard = {
             localStorage.removeItem("userId")
             this.$emit("authenticated", false)
         }
-        
     },
     computed: {
         // v-for doesnt support stepping
@@ -253,11 +287,12 @@ const dashboard = {
             <v-card class="mt-1" width="100%" :height="footerSectionHeight">
                 <v-card-text>
 
-
+                    <app-player></app-player>
 
                 </v-card-text>
             </v-card>
         </v-row>
+        
     `,
     
 }

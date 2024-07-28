@@ -1,4 +1,5 @@
 const login = {
+    props: ['code'],
     data() {
         return {
             input: {
@@ -7,6 +8,7 @@ const login = {
             },
             msg: "",
             userId: null,
+            test: "test"
         }
     },
     template: `
@@ -14,6 +16,7 @@ const login = {
             <v-col cols="12" md="6" lg="5" xl="4">
                 <v-card>
                     <v-card-title>Login</v-card-title>
+                    <v-alert v-if="code" closable icon="mdi-alert-circle" color="error">Access token expired</v-alert>
                     <v-alert v-if="msg" closable icon="mdi-alert-circle" :text="msg" color="error"></v-alert>
                     <v-card-text>
                         <v-form @submit="login">
@@ -83,8 +86,6 @@ const login = {
 		},
     },
     mounted() {
-        
-
         if(localStorage.getItem("userId") != null)
         {
             this.$emit("authenticated", true);

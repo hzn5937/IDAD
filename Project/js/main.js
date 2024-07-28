@@ -6,7 +6,8 @@ const router = VueRouter.createRouter({
         {
             path: '/login',
             component: login,
-            name:"login"
+            name:"login",
+            props: true
         },
         {
             path: "/signup",
@@ -48,12 +49,14 @@ const app = Vue.createApp({
     
 });
 
-
 const vuetify = Vuetify.createVuetify({
     theme: {
         defaultTheme: "dark",
       },
 })  
+
+app.component('app-player', player)
+
 
 
 app.use(vuetify)
