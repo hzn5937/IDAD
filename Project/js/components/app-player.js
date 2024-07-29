@@ -62,7 +62,26 @@ const player =
     },
     computed: {
         isMute() {
-            return this.volume == 0
-        }
+            this.$store.state.player.isMute = this.volume == 0 ? true : false
+            return this.$store.state.player.isMute
+        },
+    },
+    watch: {
+        volume(newVolume)
+        {
+            this.$store.state.player.volume = newVolume
+        },
+        isShuffle(newShuffle)
+        {
+            this.$store.state.player.isShuffle = newShuffle
+        },
+        isPlaying(newPlaying)
+        {
+            this.$store.state.player.isPlaying = newPlaying
+        },
+        isRepeat(newRepeat)
+        {
+            this.$store.state.player.isRepeat = newRepeat
+        },
     }
 }

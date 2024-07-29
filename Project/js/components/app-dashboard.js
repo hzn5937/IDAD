@@ -43,22 +43,26 @@ const dashboard = {
         else if (tracksApi.status == 401)
         {
             // renew access token
-            const url = "https://accounts.spotify.com/api/token"
-            const refreshToken = localStorage.getItem("refresh_token")
-            
-            const payload = {
-                methods: "POST",
-                headers: {
-                    "Content-Type" : "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({
-                    "grant_type": "refresh_token",
-                    "refresh_token": refreshToken,
-                    "client_id": "9c613bc94240470db86c57dfed938509",
-                })
-            }
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+            myHeaders.append("Cookie", "__Host-device_id=AQBz12dhVNyVny_HxhXtWX4QbX1RsLyH41Hs6srLCSY3zWISVwm9Y2zC6TL4fUTaM1HvdC8MyO3GDWNND8aOOOxz_-iWlsD0Z8U; sp_tr=false");
 
-            const refreshTokenApi = await fetch(url, payload)
+            const urlencoded = new URLSearchParams();
+            urlencoded.append("grant_type", "refresh_token");
+            urlencoded.append("refresh_token", "AQBUDKrcXMGQkLrPryioisCSCv9b38gcdWfD8rr13zzmMJWMdVY_RDxZsxFbox5cL0ID4jW_msb5AM8i03V9TAUH6RJCG3ddIiiw6WXS1d0PLgYtfsRVGS3OBSTCl3IxWGE");
+            urlencoded.append("client_id", "9c613bc94240470db86c57dfed938509");
+            urlencoded.append("client_secret", "a4896f7afdbd4553898339d9f818d3ad");
+
+            const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: "follow"
+            };
+
+            
+
+            const refreshTokenApi = await fetch("https://accounts.spotify.com/api/token", requestOptions)
             if (refreshTokenApi.ok)
             {
                 const data = await refreshTokenApi.json()
@@ -188,7 +192,6 @@ const dashboard = {
                         <v-card-text>
                             <p><v-btn variant="text" @click="clickHome()"><v-icon>mdi-home</v-icon> Home</v-btn></p>
                             <p><v-btn variant="text" @click="clickSearch()"><v-icon>mdi-magnify</v-icon> Search</v-btn></p>
-                            {{authenticated}}
                         </v-card-text>
                     </v-card>
                 </v-row>
@@ -197,7 +200,9 @@ const dashboard = {
                         <v-card-text class="d-flex justify-space-between">
                             <v-btn variant="text" ><v-icon>mdi-playlist-music</v-icon> Your Library</v-btn>
                             <v-btn variant="text" ><v-icon>mdi-plus</v-icon></v-btn>
-                        </v-card-text>
+                            {{this.$store.state.player.isMute}}
+                            {{this.$store.state.player.volume}}
+                        </v-card-text> 
                     </v-card>
                 </v-row>
             </v-col>

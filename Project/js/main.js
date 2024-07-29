@@ -1,5 +1,4 @@
 
-
 const router = VueRouter.createRouter({
 	history: VueRouter.createWebHashHistory(), 
 	routes: [
@@ -55,10 +54,31 @@ const vuetify = Vuetify.createVuetify({
       },
 })  
 
+const store = Vuex.createStore({
+    state: {
+        player: {
+            test: "test",
+            isShuffle: false,
+            isPlaying: false,
+            isRepeat: false,
+            isMuted: false,
+            volume: 50,
+            tempVolume: 50,
+        },
+    },
+    getters: {},
+    mutations: {
+        
+    },
+    actions: {}
+})
+
+
 app.component('app-player', player)
 
 
 
 app.use(vuetify)
 app.use(router)
+app.use(store)
 app.mount('#app')
