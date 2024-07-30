@@ -68,6 +68,8 @@ const dashboard = {
                 const data = await refreshTokenApi.json()
                 localStorage.setItem("token", data.access_token)
                 localStorage.setItem("refresh_token", data.refresh_token)
+                // refresh the page
+                window.location.reload()
             }
             else 
             {
@@ -112,6 +114,10 @@ const dashboard = {
         }
     },
     methods: {
+        // To-do: delete this function
+        test() {
+            window.location.reload()
+        },
         isLoggedIn() {
             return localStorage.getItem("userId") != null
         },
@@ -169,7 +175,8 @@ const dashboard = {
         logout() {
             localStorage.removeItem("userId")
             this.$emit("authenticated", false)
-        }
+        },
+        
     },
     computed: {
         // v-for doesnt support stepping
@@ -200,8 +207,6 @@ const dashboard = {
                         <v-card-text class="d-flex justify-space-between">
                             <v-btn variant="text" ><v-icon>mdi-playlist-music</v-icon> Your Library</v-btn>
                             <v-btn variant="text" ><v-icon>mdi-plus</v-icon></v-btn>
-                            {{this.$store.state.player.isMute}}
-                            {{this.$store.state.player.volume}}
                         </v-card-text> 
                     </v-card>
                 </v-row>

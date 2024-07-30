@@ -14,21 +14,36 @@ const player =
             <v-card class="mt-1" width="100%">
                 <v-card-text>
                     <v-row>
+
                         <v-col cols="5" lg="5" md="5">
+                            
                         </v-col>
+
                         <v-col cols="3" lg="5" md="5">
-                            <v-icon size="x-large" v-if="isShuffle">mdi-shuffle-disabled</v-icon>
-                            <v-icon size="x-large" v-else>mdi-shuffle-variant</v-icon>
 
-                            <v-icon size="x-large">mdi-skip-previous</v-icon>
+                            <v-btn @click="toggleShuffle">
+                                <v-icon size="x-large" v-if="!isShuffle">mdi-shuffle-disabled</v-icon>
+                                <v-icon size="x-large" v-else>mdi-shuffle-variant</v-icon>
+                            </v-btn>
 
-                            <v-icon size="x-large" v-if="isPlaying">mdi-pause</v-icon>
-                            <v-icon size="x-large" v-else>mdi-play</v-icon>
+                            <v-btn>
+                                <v-icon size="x-large">mdi-skip-previous</v-icon>
+                            </v-btn>
 
-                            <v-icon size="x-large">mdi-skip-next</v-icon>
+                            <v-btn @click="togglePlay">
+                                <v-icon size="x-large" v-if="isPlaying">mdi-pause</v-icon>
+                                <v-icon size="x-large" v-else>mdi-play</v-icon>
+                            </v-btn>
 
-                            <v-icon size="x-large" v-if="isRepeat">mdi-repeat</v-icon>
-                            <v-icon size="x-large" v-else>mdi-repeat-off</v-icon>
+                            <v-btn>
+                                <v-icon size="x-large">mdi-skip-next</v-icon>
+                            </v-btn>
+
+                            <v-btn @click="toggleRepeat">
+                                <v-icon size="x-large" v-if="isRepeat">mdi-repeat</v-icon>
+                                <v-icon size="x-large" v-else>mdi-repeat-off</v-icon>
+                            </v-btn>
+
                         </v-col>
                         <v-col cols="4" lg="2" md="2">
                             <v-slider 
@@ -58,7 +73,16 @@ const player =
                 this.volume = 0
                 this.isMute = true
             }
-        }
+        },
+        toggleShuffle() {
+            this.isShuffle = !this.isShuffle
+        },
+        togglePlay() {
+            this.isPlaying = !this.isPlaying
+        },
+        toggleRepeat() {
+            this.isRepeat = !this.isRepeat
+        },
     },
     computed: {
         isMute() {
@@ -83,5 +107,8 @@ const player =
         {
             this.$store.state.player.isRepeat = newRepeat
         },
+    },
+    mounted() {
+        
     }
 }
