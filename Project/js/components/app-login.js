@@ -75,7 +75,7 @@ const login = {
                     this.userId = data;
                     localStorage.setItem("userId", this.userId);
                     this.$emit("authenticated", true);
-                    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/callback&scope=streaming user-read-email user-read-private`
+                    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=http://localhost/idad/project/callback&scope=streaming user-read-email user-read-private user-modify-playback-state`
 
                     // this.$router.replace({ name: "dashboard" });
                 }
