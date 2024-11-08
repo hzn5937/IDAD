@@ -32,7 +32,8 @@ const dashboard = {
 
         await this.getGenres();
 
-        await this.transferPlayback();
+        // await this.transferPlayback();
+        // await this.getAvailableDevices();
 
         
     },
@@ -199,7 +200,7 @@ const dashboard = {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    "device_ids": [localStorage.getItem("device_id")],
+                    "device_ids": ["5a2ec7c52d2c6c94855e8635478c85e95c3e0295"],
                     "play": true
                 })
             }
@@ -208,6 +209,27 @@ const dashboard = {
             if (transferPlaybackApi.ok)
             {
                 console.log("Playback transfered")
+            }
+            else 
+            {
+                let response = await transferPlaybackApi.json()
+                this.trackError += `\n${response.error.status}: ${response.error.message}`
+            }
+        },
+        getAvailableDevices: async function() {
+            let url = "https://api.spotify.com/v1/me/player/devices"
+            options = {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            }
+
+            const devicesApi = await fetch(url, options)
+            if (devicesApi.ok)
+            {
+                const devicesData = await devicesApi.json()
+                console.log(devicesData)
             }
             else 
             {
